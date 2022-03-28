@@ -36,6 +36,34 @@ class Game
         draw? || won?
     end 
 
+    def play 
+
+        until over?
+            turn 
+            @board.display 
+        end 
+
+        if winner
+            puts "Congratulations #{winner}!" 
+        elsif draw?
+            puts "Cat's Game!"
+        end 
+
+    end 
+
+    def turn 
+
+        input = nil
+
+        until @board.valid_move?(input)
+            puts "Where would you like to move?"
+            input = current_player.move(@board)
+        end 
+
+        @board.update(input, current_player)
+        
+    end 
+
     def winner 
         @board.cells[won?[0]] if won?
     end 
